@@ -2,38 +2,59 @@ var xSize = 10;
 var ySize = 10;
 var cellSize = 30;
 var board;
-
-function exampleOfUsage() {
-    createCanvas(500, 500);
-    background(255, 204, 100);
-    // fill(12,23,34);
-    // rect(10, 10, 50, 120);
-    fill('red');
-    // rect(150, 180, 10, 60);
-
-    ellipse(350, 250, 140, 80);
-    text('Hello world', 20, 150);
-}
+var neighbord = 0;
 
 function createBoard() {
     board = new Array(ySize);
     for (let y = 0; y < ySize; y++) {
         board[y] = new Array(xSize);
         for (let x = 0; x < xSize; x++) {
-            board[y][x] = new Cell(random(1) < 0.5, x * cellSize, y * cellSize, cellSize);
+            board[y][x] = new Cell(random(1) > 0.2, x * cellSize, y * cellSize, cellSize);
         }
     }
 }
 
-function setup() {
-    createCanvas(xSize * cellSize, ySize * cellSize);
-    background(255, 204, 100);
-    createBoard();
+function counterNeighbors() {
     for (y = 0; y < ySize; y++) {
         for (x = 0; x < xSize; x++) {
-            board[y][x].look();
+            if (!board[y][x].mine) {
+                if (x > 0 && board[y][x - 1].mine) {
+                    board[y][x - 1].neighborCounter += (neighbord + 1);
+                }
+                if (x < (xSize - 1) && board[y][x + 1].mine) {
+                    board[y][x + 1].neighborCounter += neighbord + 1;
+                }
+                if (y > 0 && board[y - 1][x].mine) {
+                    board[y - 1][x].neighborCounter += neighbord + 1;
+                }
+                if (y < (ySize - 1) && board[y + 1][x].mine) {
+                    board[y + 1][x].neighborCounter += neighbord + 1;
+                }
+                if (x > 0 && y > 0 && board[y - 1][x - 1].mine) {
+                    board[y - 1][x - 1].neighborCounter += (neighbord + 1);
+                }
+                if (x > 0 && y < (ySize - 1) && board[y + 1][x - 1].mine) {
+                    board[y + 1][x - 1].neighborCounter += (neighbord + 1);
+                }
+                if (x < (xSize - 1) && y < (ySize - 1) && board[y + 1][x + 1].mine) {
+                    board[y + 1][x + 1].neighborCounter += (neighbord + 1);
+                }
+                if (x < (xSize - 1) && y > 0 && board[y - 1][x + 1].mine) {
+                    board[y - 1][x + 1].neighborCounter += (neighbord + 1);
+                }
+            }
         }
     }
+
+
+    function newFunction() {
+        return this.mine;
+    }
+}
+function setup() {
+    createCanvas(xSize * cellSize, ySize * cellSize);
+    createBoard();
+    counterNeighbors();
 }
 
 function draw() {

@@ -2,7 +2,7 @@ class Cell {
 
     constructor(isMine, x, y, size) {
         this.mine = isMine;
-        this.neighborCounter = 0;
+        this.neighborCounter = neighbord;
         this.revealed = false;
         this.x = x;
         this.y = y;
@@ -10,39 +10,19 @@ class Cell {
 
     }
 
-    // show() {
-    //     fill('white');
-    //     rect(this.x, this.y, this.size);
-    //     if (this.mine === false) {
-    //         let c = color('red');
-    //         fill(c);
-    //         ellipse((cellSize * 0.5) + (cellSize * x), (cellSize * 0.5) + (cellSize * y), cellSize, cellSize);
-    //     }
-    //     else {
-    //         fill('black')
-    //         text('1', cellSize * 0.5 + (cellSize * x), (cellSize * 0.5) + (cellSize * y), cellSize);
-
-    //     }
-    // }
-    look() {
-
+    show() {
         fill('white');
         rect(this.x, this.y, this.size);
-        if (this.mine === false) {
+        if (!this.mine) {
             let c = color('red');
             fill(c);
-            ellipse((cellSize * 0.5) + (cellSize * x), (cellSize * 0.5) + (cellSize * y), cellSize, cellSize);
+            ellipse((cellSize * 0.5) + (cellSize * x), (cellSize * 0.5) + (cellSize * y), cellSize * 0.6);
         }
         else {
             fill('black')
-            text( Math.floor(Math.random() * 10), cellSize * 0.5 + (cellSize * x), (cellSize * 0.5) + (cellSize * y), cellSize);
+            text(this.neighborCounter, cellSize * 0.5 + (cellSize * x), (cellSize * 0.5) + (cellSize * y), cellSize);
 
         }
     }
-    // TODO: 
-    // If is mine - draw circle inside with red color;
-    // If is not mine - write random number (0-9) -> will be used in the future for neightbour counter;
-    // Remember, that it has to scale with this.size
-
 
 }
