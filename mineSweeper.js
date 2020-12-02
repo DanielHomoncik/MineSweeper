@@ -1,6 +1,6 @@
 var xSize = 10;
-var ySize = 10;
-var cellSize = 30;
+var ySize = 11;
+var cellSize =30;
 var board;
 var neighbord = 0;
 let revealed = true;
@@ -15,7 +15,7 @@ function createBoard() {
     }
 }
 function counterNeighbors() {
-    for (y = 0; y < ySize; y++) {
+    for (y = 1; y < ySize; y++) {
         for (x = 0; x < xSize; x++) {
             if (!board[y][x].mine) {
                 if (x > 0 && board[y][x - 1].mine) {
@@ -57,7 +57,13 @@ function mouseClicked() {
         }
     }
 }
+function doubleClicked() {
+    window.location.reload();
+}
 function setup() {
+    document.oncontextmenu = function(){
+        return false;
+    }
     createCanvas(xSize * cellSize, ySize * cellSize);
     createBoard();
     counterNeighbors();
@@ -67,5 +73,6 @@ function draw() {
         for (x = 0; x < xSize; x++) {
             board[y][x].show()
         }
+
     }
 }

@@ -10,16 +10,18 @@ class Cell {
         this.lost = lost;
     }
 
-    
+
     show() {
-        fill('grey')
-        text('refres', cellSize * 0.5 + (cellSize * x), (cellSize * 0.5) + (cellSize * y), cellSize);
-        
-        if (board[y][x].revealed === true) {
+        fill('black')
+        rect(this.x, 1, this.size);
+        fill('white')
+        textSize(cellSize * 0.3);
+        text('Kliknij (gdziekolwiek) dwukrotnie aby odświeżyć', cellSize, 10, this.size * cellSize);
+        if (board[y][x].revealed === true && y !== 0) {
             fill('gray');
             rect(this.x, this.y, this.size);
         }
-        else {
+        else if (y !== 0) {
             fill('blue');
             rect(this.x, this.y, this.size);
 
